@@ -1,0 +1,64 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    fabric8.io/git-commit: 8069966c03f70ea98a53771005c99d51dfb46db8
+    fabric8.io/iconUrl: img/icons/camel.svg
+    fabric8.io/git-branch: main
+    fabric8.io/metrics-path: dashboard/file/camel-routes.json/?var-project=AnimalOrderService&var-version=1.0.0-SNAPSHOT
+  labels:
+    app: AnimalOrderService
+    provider: fabric8
+    version: 1.0.0-SNAPSHOT
+    group: org.mycompany
+  name: animalorderservice
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: AnimalOrderService
+      provider: fabric8
+      group: org.mycompany
+  template:
+    metadata:
+      annotations:
+        fabric8.io/git-commit: 8069966c03f70ea98a53771005c99d51dfb46db8
+        fabric8.io/iconUrl: img/icons/camel.svg
+        fabric8.io/git-branch: main
+        fabric8.io/metrics-path: dashboard/file/camel-routes.json/?var-project=AnimalOrderService&var-version=1.0.0-SNAPSHOT
+      labels:
+        app: AnimalOrderService
+        provider: fabric8
+        version: 1.0.0-SNAPSHOT
+        group: org.mycompany
+    spec:
+      containers:
+      - env:
+        - name: SPRING_APPLICATION_JSON
+          value: '{"server":{"tomcat":{"max-threads":1}}}'
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        image: animalorderservice:latest
+        imagePullPolicy: IfNotPresent
+        name: spring-boot
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 9779
+          name: prometheus
+          protocol: TCP
+        - containerPort: 8778
+          name: jolokia
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "1.0"
+          requests:
+            cpu: "0.2"
+        securityContext:
+          privileged: false
