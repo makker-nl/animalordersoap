@@ -1,3 +1,6 @@
+# AnimalOrderSOAP
+Example project to demonstrate SOAP service using CXF, and deployment to OpenShift using Fabric8.
+
 # Spring-Boot Camel QuickStart
 
 This example demonstrates how you can use Apache Camel with Spring Boot.
