@@ -5,9 +5,14 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 	                    http://camel.apache.org/schema/cxf https://camel.apache.org/schema/cxf/camel-cxf.xsd
 	                    http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring.xsd">
-	<cxf:cxfEndpoint xmlns:aowsdl="http://xmlns.vs.nl/fuse/demo/wsdl/AnimalOrders" id="animalOrderSOAPEndpoint"
-		address="${aOSvc.endpoint}" wsdlURL="wsdl/AnimalOrderService.wsdl"
+	<cxf:cxfEndpoint
+		xmlns:aowsdl="http://xmlns.vs.nl/fuse/demo/wsdl/AnimalOrders"
+		id="animalOrderSOAPEndpoint" address="${aOSvc.endpoint}"
+		wsdlURL="wsdl/AnimalOrderService.wsdl"
 		endpointName="aowsdl:order_pttPort" serviceName="aowsdl:order_ptt"
-		serviceClass="nl.virtualsciences.fuse.soap.animalorder.webservices.AnimalOrderServiceProvider" >   <cxf:properties>
-       <entry key="dataFormat" value="PAYLOAD"/></cxf:properties></cxf:cxfEndpoint>
+		serviceClass="nl.virtualsciences.fuse.soap.animalorder.webservices.AnimalOrderServiceProvider">
+		<cxf:properties>
+			<entry key="dataFormat" value="PAYLOAD" />
+		</cxf:properties>
+	</cxf:cxfEndpoint>
 </beans>

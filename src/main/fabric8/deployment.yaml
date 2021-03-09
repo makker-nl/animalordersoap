@@ -1,0 +1,30 @@
+spec:
+  template:
+    spec:
+      containers:
+        - env:
+          - name: SERVICE_ENDPOINT_PREFIX
+            valueFrom:
+              configMapKeyRef:
+                name: spring-boot-configmaps-demo
+                key: aOSvc.endpoint.prefix
+          volumeMounts:
+          - name: application-config 
+            mountPath: "/deployments/config" 
+            readOnly: true
+      volumes:
+      # Projected volume with multiple config maps
+      # https://kubernetes.io/docs/concepts/storage/volumes/#projected
+      - name: application-config
+        projected:
+          sources:
+          - configMap:
+              name: animalorderservice-app-config 
+              items:
+              - key: application.properties 
+                path: application.properties
+          - configMap:
+              name: animalorderservice-app-yaml
+              items:
+              - key: application.yml
+                path: application.yml
